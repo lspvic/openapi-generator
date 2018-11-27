@@ -650,6 +650,13 @@ public class PythonFlaskConnexionServerCodegen extends DefaultCodegen implements
     }
 
     @Override
+    protected void addImport(CodegenModel m, String type) {
+        if (type != null && needToImport(type)) {
+            m.imports.add(toModelImport(type));
+        }
+    }
+
+    @Override
     public void postProcessModelProperty(CodegenModel model, CodegenProperty property) {
         if (StringUtils.isNotEmpty(property.pattern)) {
             addImport(model, "import re");
